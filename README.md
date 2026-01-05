@@ -111,6 +111,7 @@ make pristine        : Absolute reset (volumes + images)
 make wp-purge-sample : Remove default WordPress sample content
 make test            : Infrastructure smoke tests
 make verify-reset    : Show bind mounts and current state
+```
 
 ## Requirements
 
@@ -126,12 +127,14 @@ make verify-reset    : Show bind mounts and current state
    ```bash
    git clone <repo_url>
    cd inception
+   ```
 
 2. Build and start the infrastructure:
    ```bash
    make up
+   ```
 
-3.Access the website:
+3. Access the website:
    https://localhost
 
 ## Resources
