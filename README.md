@@ -37,7 +37,7 @@ persistence in a production-like environment.
 
 ## Project Architecture
 
-![Docker WordPress Architecture](https://raw.githubusercontent.com/Xperaz/inception-42/main/assets/inception_architecture.png)
+<!-- ![Docker WordPress Architecture](https://raw.githubusercontent.com/Xperaz/inception-42/main/assets/inception_architecture.png) -->
 
 The infrastructure consists of three core services orchestrated via
 **Docker Compose** and started in a controlled order using **health checks**.
@@ -125,7 +125,7 @@ make verify-reset    : Show bind mounts and current state
 
 1. Clone the repository:
    ```bash
-   git clone <repo_url>
+   git clone git@github.com:Nico-Ry/incep-vm.git
    cd inception
    ```
 
