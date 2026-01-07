@@ -30,13 +30,13 @@ volumes:
 
 secrets:
   db_root_password:
-    file: ../secrets/db_root_password.txt    # used by MariaDB root
+    file: ${SECRETS_DIR}/db_root_password.txt    # used by MariaDB root
   db_password:
-    file: ../secrets/db_password.txt         # used by WP app user
+    file: ${SECRETS_DIR}/db_password.txt         # used by WP app user
   wp_admin_pass:
-    file: ../secrets/credentials.txt         # WP admin password
+    file: ${SECRETS_DIR}/credentials.txt         # WP admin password
   wp_second_pass:
-    file: ../secrets/wp_second_pass.txt      # optional second user password
+    file: ${SECRETS_DIR}/wp_second_pass.txt      # optional second user password
 
 services:
   # ===================== MariaDB =====================

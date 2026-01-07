@@ -22,6 +22,11 @@ PROJECT      := srcs
 COMPOSE_FILE := $(PROJECT)/docker-compose.yml
 ENV_FILE     := $(PROJECT)/.env
 
+# ---- secrets (stored OUTSIDE repo) ----
+# Recommended location: /home/<login>/.inception_secrets
+# Must match  .env: SECRETS_DIR=/home/${LOGIN}/.inception_secrets
+SECRETS_DIR  ?= /home/$(LOGIN)/.inception_secrets
+
 # host bind-dirs
 DB_DIR := /home/$(LOGIN)/data/mariadb
 WP_DIR := /home/$(LOGIN)/data/wordpress
@@ -57,6 +62,8 @@ define PRINT_HEADER
 	@printf "  $(PRP)make wp-purge-sample$(RST)  : Remove default sample post/page safely (optional)\n"
 	@printf "  $(PRP)make test$(RST)             : Infra smoke tests (TLS, routing, PHP-FPM, DB, WP)\n"
 	@printf "  $(PRP)make verify-reset$(RST)     : Show on-disk bind-dirs and quick DB/files state\n"
+	@printf "\n"
+	@printf "$(DIM)Secrets directory: $(SECRETS_DIR)$(RST)\n"
 endef
 
 .PHONY: help
@@ -75,9 +82,13 @@ endef
 define ensure_files
 	@[ -f $(COMPOSE_FILE) ] || { printf "$(RED)✖ Missing $(COMPOSE_FILE)$(RST)\n"; exit 1; }
 	@[ -f $(ENV_FILE) ]     || { printf "$(RED)✖ Missing $(ENV_FILE)$(RST)\n"; exit 1; }
-	@[ -f secrets/db_root_password.txt ] || { printf "$(RED)✖ Missing secrets/db_root_password.txt$(RST)\n"; exit 1; }
-	@[ -f secrets/db_password.txt ]      || { printf "$(RED)✖ Missing secrets/db_password.txt$(RST)\n"; exit 1; }
-	@[ -f secrets/credentials.txt ]      || { printf "$(RED)✖ Missing secrets/credentials.txt$(RST)\n"; exit 1; }
+
+	@[ -d $(SECRETS_DIR) ] || { printf "$(RED)✖ Missing secrets dir: $(SECRETS_DIR)$(RST)\n"; exit 1; }
+	@[ -f $(SECRETS_DIR)/db_root_password.txt ] || { printf "$(RED)✖ Missing $(SECRETS_DIR)/db_root_password.txt$(RST)\n"; exit 1; }
+	@[ -f $(SECRETS_DIR)/db_password.txt ]      || { printf "$(RED)✖ Missing $(SECRETS_DIR)/db_password.txt$(RST)\n"; exit 1; }
+	@[ -f $(SECRETS_DIR)/credentials.txt ]      || { printf "$(RED)✖ Missing $(SECRETS_DIR)/credentials.txt$(RST)\n"; exit 1; }
+	@[ -f $(SECRETS_DIR)/wp_second_pass.txt ]   || { printf "$(RED)✖ Missing $(SECRETS_DIR)/wp_second_pass.txt$(RST)\n"; exit 1; }
+	
 	@printf "✔ Files present (compose, env, secrets)\n"
 endef
 
