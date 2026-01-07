@@ -66,7 +66,7 @@ services:
 
   # ================= WordPress (php-fpm) ==============
   wordpress:
-    image: wordpress                         # image tag name (ok to keep with build)
+    image: inception-wordpress                         # image tag name (ok to keep with build)
     build:
       context: ./requirements/wordpress      # builds your custom WP+PHP-FPM image
     container_name: wordpress
@@ -103,7 +103,7 @@ services:
 
   # ====================== NGINX =======================
   nginx:
-    image: nginx                             # image tag name (ok to keep with build)
+    image: inception-nginx                             # image tag name (ok to keep with build)
     build:
       context: ./requirements/nginx
       args:

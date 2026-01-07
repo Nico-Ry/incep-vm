@@ -88,7 +88,7 @@ define ensure_files
 	@[ -f $(SECRETS_DIR)/db_password.txt ]      || { printf "$(RED)✖ Missing $(SECRETS_DIR)/db_password.txt$(RST)\n"; exit 1; }
 	@[ -f $(SECRETS_DIR)/credentials.txt ]      || { printf "$(RED)✖ Missing $(SECRETS_DIR)/credentials.txt$(RST)\n"; exit 1; }
 	@[ -f $(SECRETS_DIR)/wp_second_pass.txt ]   || { printf "$(RED)✖ Missing $(SECRETS_DIR)/wp_second_pass.txt$(RST)\n"; exit 1; }
-	
+
 	@printf "✔ Files present (compose, env, secrets)\n"
 endef
 
@@ -123,11 +123,11 @@ up:
 	$(normalize_scripts)
 	$(ensure_files)
 	$(ensure_dirs)
-	@docker compose --env-file $(ENV_FILE) -f $(COMPOSE_FILE) up -d mariadb
+	@docker compose --env-file $(ENV_FILE) -f $(COMPOSE_FILE) up -d --build --pull never mariadb
 	$(call WAIT_HEALTHY,mariadb)
-	@docker compose --env-file $(ENV_FILE) -f $(COMPOSE_FILE) up -d wordpress
+	@docker compose --env-file $(ENV_FILE) -f $(COMPOSE_FILE) up -d --build --pull never wordpress
 	$(call WAIT_HEALTHY,wordpress)
-	@docker compose --env-file $(ENV_FILE) -f $(COMPOSE_FILE) up -d nginx
+	@docker compose --env-file $(ENV_FILE) -f $(COMPOSE_FILE) up -d --build --pull never nginx
 	@printf "✔ Stack is up. Open https://$$(grep ^DOMAIN_NAME= $(ENV_FILE) | cut -d= -f2)\n"
 
 .PHONY: build
