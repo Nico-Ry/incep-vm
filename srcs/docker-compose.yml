@@ -41,7 +41,7 @@ secrets:
 services:
   # ===================== MariaDB =====================
   mariadb:
-    image : mariadb                          # image tag name (ok to keep with build)
+    image : incepton-mariadb                          # image tag name (ok to keep with build)
     build: ./requirements/mariadb            # builds your custom DB image
     container_name: mariadb
     restart: unless-stopped
