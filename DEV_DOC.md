@@ -88,6 +88,7 @@ Recommended permissions:
 ```bash
 chmod 700 /home/nryser/.inception_secrets
 chmod 600 /home/nryser/.inception_secrets/*.txt
+```
 
 Inside containers, secrets are available at:
 - `/run/secrets/db_root_password`
