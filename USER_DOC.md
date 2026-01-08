@@ -114,6 +114,7 @@ chmod 600 /home/nryser/.inception_secrets/*.txt
 ### Container status
 ```bash
 make ps
+```
 
 You should see the following containers running:
 - `nginx`
